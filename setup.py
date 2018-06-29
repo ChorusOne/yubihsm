@@ -1,9 +1,13 @@
 # Copyright (c) 2016 Yubico AB
 
+import os
 import sys
 from setuptools import setup, find_packages
 
-install_requires = ['six', 'requests', 'cryptography>=1.8']
+BASE_DIR = os.path.dirname(__file__)
+REQS_PATH = os.path.join(BASE_DIR, 'requirements.txt')
+
+install_requires = open(REQS_PATH).read().splitlines()
 if sys.version_info < (3, 4):
     install_requires.append('enum34')
 
