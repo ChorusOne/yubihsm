@@ -20,6 +20,22 @@ class BRAINPOOLP512R1(object):
     name = 'brainpoolP512r1'
     key_size = 512
 
+class SuperIntEnum(IntEnum):
+    """A helper class for IntEnum to add a few utility functions."""
+
+    def __str__(self):
+        return '{}'.format(self.name.lower())
+
+    @classmethod
+    def all(cls):
+        return sum(cls)
+
+    @classmethod
+    def from_string(cls, s):
+        for name, member in cls.__members__.items():
+            if s.lower() == name.lower():
+                return member
+        raise ValueError('Unknown item: {}'.format(s))
 
 @unique
 class ERROR(IntEnum):
@@ -98,7 +114,7 @@ class COMMAND(IntEnum):
 
 
 @unique
-class ALGO(IntEnum):
+class ALGO(SuperIntEnum):
     RESERVED = 0
 
     RSA_PKCS1_SHA1 = 1
@@ -193,7 +209,7 @@ class LIST_FILTER(IntEnum):
 
 
 @unique
-class OBJECT(IntEnum):
+class OBJECT(SuperIntEnum):
     OPAQUE = 0x01
     AUTHKEY = 0x02
     ASYMMETRIC = 0x03
@@ -213,7 +229,7 @@ class OPTION(object):
 
 
 @unique
-class CAPABILITY(IntEnum):
+class CAPABILITY(SuperIntEnum):
     OPAQUE_READ = 1 << 0x00
     OPAQUE_WRITE = 1 << 0x01
     AUTHKEY_WRITE = 1 << 0x02
@@ -260,17 +276,3 @@ class CAPABILITY(IntEnum):
     DELETE_HMACKEY = 1 << 0x2b
     DELETE_TEMPLATE = 1 << 0x2c
     DELETE_OTP_AEAD_KEY = 1 << 0x2d
-
-    def __str__(cls):
-        return '{}'.format(cls.name.lower())
-
-    @classmethod
-    def all(cls):
-        return sum(cls)
-
-    @staticmethod
-    def from_string(s):
-        for name, member in CAPABILITY.__members__.items():
-            if s.lower() == name.lower():
-                return member
-        raise ValueError('Unknown capability: {}'.format(s))
