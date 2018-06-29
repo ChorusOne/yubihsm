@@ -56,7 +56,8 @@ def label_pack(label):
 
 
 def label_unpack(packed):
-    return packed.rstrip(b'\0').decode('utf-8')
+    null_pos = packed.find(b'\0')
+    return packed[:null_pos].decode('utf-8')
 
 
 def to_bytes(bit_length):
