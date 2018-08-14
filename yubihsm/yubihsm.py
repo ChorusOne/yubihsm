@@ -245,6 +245,14 @@ class LogEntry(object):
 
         self.digest = line[-16:]
 
+    @property
+    def is_reset(self):
+        return self.data == b'\xff' * 16
+
+    @property
+    def is_boot(self):
+        return self.data == b'\x00' * 16
+
     def __str__(self):
         return (
             'item: %5u cmd: 0x%02x -- length: %4u -- session key: 0x%04x'
