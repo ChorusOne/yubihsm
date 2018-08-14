@@ -249,9 +249,10 @@ class LogEntry(object):
         return (
             'item: %5u cmd: 0x%02x -- length: %4u -- session key: 0x%04x'
             ' -- target key: 0x%04x -- second key: 0x%04x -- result: 0x%02x'
-            ' -- tick: %d' % (
+            ' -- tick: %d -- hash: %s' % (
                 self.number, self.command, self.length, self.session_key,
-                self.target_key, self.second_key, self.result, self.systick
+                self.target_key, self.second_key, self.result, self.systick,
+                self.digest.hex()
             )
         )
 
