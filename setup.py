@@ -13,7 +13,7 @@ if sys.version_info < (3, 4):
 
 setup(
     name='yubihsm',
-    version='1.2.0',
+    version='1.2.2',
     description='Python library for the YubiHSM 2',
     author='Yubico',
     author_email='yubico@yubico.com',
