@@ -25,11 +25,18 @@
           six
         ];
         checkInputs = with pkgs.python3Packages; [
+          pytest
           rsa
           ed25519
         ];
 
         src = ./.;
+
+        # The tests in `test_yubihsm.py` require a network connection to a real YubiHSM
+        # Therefore we only run `test_utils.py`
+        checkPhase = ''
+          python -m pytest test/test_utils.py
+        '';
       };
     in
     {
