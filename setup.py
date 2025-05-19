@@ -7,7 +7,11 @@ from setuptools import setup, find_packages
 BASE_DIR = os.path.dirname(__file__)
 REQS_PATH = os.path.join(BASE_DIR, 'requirements.txt')
 
-install_requires = open(REQS_PATH).read().splitlines()
+with open(REQS_PATH, "r") as reqs_file:
+    install_requires = [
+        line.strip().split('==', maxsplit=1)[0]
+        for line in reqs_file
+    ]
 if sys.version_info < (3, 4):
     install_requires.append('enum34')
 
